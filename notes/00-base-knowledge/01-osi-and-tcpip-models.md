@@ -3,6 +3,7 @@
 > **Why this note exists:** Every CCNA topic says things like "Layer 2 switch", "Layer 3 routing" or "Layer 4 port".
 > Those numbers come from the **OSI model**. Learn this first and the rest of the notes make sense.
 > **Exam relevance:** Not a numbered objective, but it is used in almost every question.
+> **Online quiz:** [▶ Take the full quiz](https://luisaguilardev.github.io/network-engineering-path/notes/00-base-knowledge/quizzes/01-osi-and-tcpip-models.html)
 
 ## The Big Picture
 

@@ -25,5 +25,6 @@ and Python for automation labs.
 ## Conventions
 
 - All documentation is written in English
+- When a quiz is added, add its GitHub Pages link to the **Online Quizzes** table in `README.md` and to the header of its note
 - When a lab or note is added, update the index table in its parent README and the progress in `README.md` / `ROADMAP.md`
 - Never commit real public IPs, passwords, MAC addresses, or ISP credentials — sanitize configs first

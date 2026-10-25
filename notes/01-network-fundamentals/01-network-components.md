@@ -3,6 +3,7 @@
 > **Exam objective:** 1.1 Explain the role and function of network components
 > **Domain:** 1. Network Fundamentals (20%)
 > **Prerequisite:** [0.1 The OSI and TCP/IP Models](../00-base-knowledge/01-osi-and-tcpip-models.md) — explains what "Layer 2" and "Layer 3" mean
+> **Online quiz:** [▶ Take the full quiz](https://luisaguilardev.github.io/network-engineering-path/notes/01-network-fundamentals/quizzes/01-network-components.html)
 
 ## The Big Picture
 

@@ -7,6 +7,15 @@ My path to the Cisco CCNA certification: study notes, hands-on labs, and real ne
 This repository documents everything I learn about networking, from fundamentals to automation.
 Theory lives in `notes/`; proof of practical skills lives in `labs/` and `projects/`.
 
+## Online Quizzes
+
+Self-graded multiple-choice quizzes that run in the browser (no install needed):
+
+| Topic | Questions | Quiz |
+|-------|-----------|------|
+| 0.1 OSI and TCP/IP Models | 34 | [▶ Take the quiz](https://luisaguilardev.github.io/network-engineering-path/notes/00-base-knowledge/quizzes/01-osi-and-tcpip-models.html) |
+| 1.1 Network Components | 26 | [▶ Take the quiz](https://luisaguilardev.github.io/network-engineering-path/notes/01-network-fundamentals/quizzes/01-network-components.html) |
+
 ## Progress
 
 | Domain | Exam weight | Status |
