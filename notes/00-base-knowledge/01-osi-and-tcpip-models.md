@@ -60,7 +60,7 @@ Benefits:
 
 **Analogy:** Building a house. The electrician, the plumber, and the painter each do their own job. The painter doesn't need to know how the wiring works, only that the walls are ready.
 
-> 🧠 **Quiz:** [Test yourself on 0.1.a](quizzes/01-osi-and-tcpip-models.html#q-0-1-a)
+> 🧠 **Quiz:** [Test yourself on 0.1.a](https://luisaguilardev.github.io/network-engineering-path/notes/00-base-knowledge/quizzes/01-osi-and-tcpip-models.html#q-0-1-a)
 
 ---
 
@@ -81,7 +81,7 @@ Benefits:
 
 **Analogy:** The road. It doesn't care what the trucks carry or where they go, it just has to be there and be in good shape.
 
-> 🧠 **Quiz:** [Test yourself on 0.1.b](quizzes/01-osi-and-tcpip-models.html#q-0-1-b)
+> 🧠 **Quiz:** [Test yourself on 0.1.b](https://luisaguilardev.github.io/network-engineering-path/notes/00-base-knowledge/quizzes/01-osi-and-tcpip-models.html#q-0-1-b)
 
 ---
 
@@ -108,7 +108,7 @@ Benefits:
 
 **Analogy:** The delivery truck inside one neighborhood. It knows the exact house (MAC), but it never leaves the neighborhood.
 
-> 🧠 **Quiz:** [Test yourself on 0.1.c](quizzes/01-osi-and-tcpip-models.html#q-0-1-c)
+> 🧠 **Quiz:** [Test yourself on 0.1.c](https://luisaguilardev.github.io/network-engineering-path/notes/00-base-knowledge/quizzes/01-osi-and-tcpip-models.html#q-0-1-c)
 
 ---
 
@@ -136,7 +136,7 @@ When a packet crosses routers, the **IP addresses stay the same** from start to 
 
 **Analogy:** IP = the full postal address on the envelope (city, street). MAC = the name of the next truck driver. The envelope keeps the same address the whole trip, but it changes trucks many times.
 
-> 🧠 **Quiz:** [Test yourself on 0.1.d](quizzes/01-osi-and-tcpip-models.html#q-0-1-d)
+> 🧠 **Quiz:** [Test yourself on 0.1.d](https://luisaguilardev.github.io/network-engineering-path/notes/00-base-knowledge/quizzes/01-osi-and-tcpip-models.html#q-0-1-d)
 
 ---
 
@@ -169,7 +169,7 @@ When a packet crosses routers, the **IP addresses stay the same** from start to 
 
 **Analogy:** The receptionist of a building. The address got the letter to the building (Layer 3); the receptionist reads the apartment number (port) and gives it to the right person. TCP = registered mail with delivery confirmation. UDP = a normal postcard.
 
-> 🧠 **Quiz:** [Test yourself on 0.1.e](quizzes/01-osi-and-tcpip-models.html#q-0-1-e)
+> 🧠 **Quiz:** [Test yourself on 0.1.e](https://luisaguilardev.github.io/network-engineering-path/notes/00-base-knowledge/quizzes/01-osi-and-tcpip-models.html#q-0-1-e)
 
 ---
 
@@ -184,7 +184,7 @@ When a packet crosses routers, the **IP addresses stay the same** from start to 
 
 **Analogy:** A phone call. Dialing, talking, and hanging up are managing the session.
 
-> 🧠 **Quiz:** [Test yourself on 0.1.f](quizzes/01-osi-and-tcpip-models.html#q-0-1-f)
+> 🧠 **Quiz:** [Test yourself on 0.1.f](https://luisaguilardev.github.io/network-engineering-path/notes/00-base-knowledge/quizzes/01-osi-and-tcpip-models.html#q-0-1-f)
 
 ---
 
@@ -199,7 +199,7 @@ When a packet crosses routers, the **IP addresses stay the same** from start to 
 
 **Analogy:** A translator who also puts the letter in a locked box (encryption) and folds it smaller (compression).
 
-> 🧠 **Quiz:** [Test yourself on 0.1.g](quizzes/01-osi-and-tcpip-models.html#q-0-1-g)
+> 🧠 **Quiz:** [Test yourself on 0.1.g](https://luisaguilardev.github.io/network-engineering-path/notes/00-base-knowledge/quizzes/01-osi-and-tcpip-models.html#q-0-1-g)
 
 ---
 
@@ -223,7 +223,7 @@ When a packet crosses routers, the **IP addresses stay the same** from start to 
 
 **Analogy:** The language and rules of a letter: "Dear…", the request, "Sincerely…". Both sides must follow the same format to understand each other.
 
-> 🧠 **Quiz:** [Test yourself on 0.1.h](quizzes/01-osi-and-tcpip-models.html#q-0-1-h)
+> 🧠 **Quiz:** [Test yourself on 0.1.h](https://luisaguilardev.github.io/network-engineering-path/notes/00-base-knowledge/quizzes/01-osi-and-tcpip-models.html#q-0-1-h)
 
 ---
 
@@ -251,7 +251,7 @@ OSI is the **reference model** (used for teaching and talking). **TCP/IP** is th
 - The original TCP/IP model merges layers **1 and 2** into **Link** (also called Network Access); Cisco material often uses a 5-layer version that keeps them separate
 - Engineers still use the **OSI numbers** when talking: "Layer 2 switch", "Layer 3 routing", "Layer 4 firewall rule", "Layer 7 inspection"
 
-> 🧠 **Quiz:** [Test yourself on 0.1.i](quizzes/01-osi-and-tcpip-models.html#q-0-1-i)
+> 🧠 **Quiz:** [Test yourself on 0.1.i](https://luisaguilardev.github.io/network-engineering-path/notes/00-base-knowledge/quizzes/01-osi-and-tcpip-models.html#q-0-1-i)
 
 ---
 
@@ -306,7 +306,7 @@ Devices in the path only go **up to the layer they need** to make their decision
 
 "Each layer talks to the same layer on the other side" is a **logical** conversation: TCP on the PC reads nothing but the header that TCP on the server wrote. The only thing that physically travels is **bits** at Layer 1.
 
-> 🧠 **Quiz:** [Test yourself on 0.1.j](quizzes/01-osi-and-tcpip-models.html#q-0-1-j)
+> 🧠 **Quiz:** [Test yourself on 0.1.j](https://luisaguilardev.github.io/network-engineering-path/notes/00-base-knowledge/quizzes/01-osi-and-tcpip-models.html#q-0-1-j)
 
 ---
 
@@ -327,7 +327,7 @@ A device "works at Layer N" when it makes its decisions using information from t
 
 Now go back to [1.1 Network Components](../01-network-fundamentals/01-network-components.md): every "Layer 2" or "Layer 3" there refers to this table.
 
-> 🧠 **Quiz:** [Test yourself on 0.1.k](quizzes/01-osi-and-tcpip-models.html#q-0-1-k)
+> 🧠 **Quiz:** [Test yourself on 0.1.k](https://luisaguilardev.github.io/network-engineering-path/notes/00-base-knowledge/quizzes/01-osi-and-tcpip-models.html#q-0-1-k)
 
 ---
 

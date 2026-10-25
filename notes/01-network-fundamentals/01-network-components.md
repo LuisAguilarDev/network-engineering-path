@@ -43,7 +43,7 @@ Every component has one job in moving data from an endpoint to a service and bac
 
 **Analogy:** A post office that reads the city on the envelope (IP network) and sends it to the next post office on the route.
 
-> 🧠 **Quiz:** [Test yourself on 1.1.a](quizzes/01-network-components.html#q-1-1-a)
+> 🧠 **Quiz:** [Test yourself on 1.1.a](https://luisaguilardev.github.io/network-engineering-path/notes/01-network-fundamentals/quizzes/01-network-components.html#q-1-1-a)
 
 ---
 
@@ -81,7 +81,7 @@ Every component has one job in moving data from an endpoint to a service and bac
 | Inter-VLAN routing | ❌ | ✅ | ✅ |
 | Typical place | Access layer | Distribution / core | Network edge / WAN |
 
-> 🧠 **Quiz:** [Test yourself on 1.1.b](quizzes/01-network-components.html#q-1-1-b)
+> 🧠 **Quiz:** [Test yourself on 1.1.b](https://luisaguilardev.github.io/network-engineering-path/notes/01-network-fundamentals/quizzes/01-network-components.html#q-1-1-b)
 
 ---
 
@@ -111,7 +111,7 @@ A stateful firewall **plus** deeper inspection, all in one device (e.g. Cisco Se
 - **URL filtering**: blocks website categories
 - **Advanced Malware Protection (AMP)**: detects malicious files
 
-> 🧠 **Quiz:** [Test yourself on 1.1.c](quizzes/01-network-components.html#q-1-1-c)
+> 🧠 **Quiz:** [Test yourself on 1.1.c](https://luisaguilardev.github.io/network-engineering-path/notes/01-network-fundamentals/quizzes/01-network-components.html#q-1-1-c)
 
 ---
 
@@ -130,7 +130,7 @@ A stateful firewall **plus** deeper inspection, all in one device (e.g. Cisco Se
 | **Lightweight** | **WLC** | Tunnels traffic to the WLC using **CAPWAP** |
 | **Cloud-based** | Cloud dashboard | e.g. Cisco Meraki |
 
-> 🧠 **Quiz:** [Test yourself on 1.1.d](quizzes/01-network-components.html#q-1-1-d)
+> 🧠 **Quiz:** [Test yourself on 1.1.d](https://luisaguilardev.github.io/network-engineering-path/notes/01-network-fundamentals/quizzes/01-network-components.html#q-1-1-d)
 
 ---
 
@@ -157,7 +157,7 @@ A stateful firewall **plus** deeper inspection, all in one device (e.g. Cisco Se
 
 > Cisco renamed DNA Center to **Catalyst Center** in 2023. The exam blueprint still says DNA Center.
 
-> 🧠 **Quiz:** [Test yourself on 1.1.e](quizzes/01-network-components.html#q-1-1-e)
+> 🧠 **Quiz:** [Test yourself on 1.1.e](https://luisaguilardev.github.io/network-engineering-path/notes/01-network-fundamentals/quizzes/01-network-components.html#q-1-1-e)
 
 ---
 
@@ -168,7 +168,7 @@ A stateful firewall **plus** deeper inspection, all in one device (e.g. Cisco Se
 - Examples: PCs, laptops, smartphones, IP phones, printers, IP cameras, IoT sensors
 - Need an IP address, subnet mask, default gateway, and DNS server to communicate outside their LAN
 
-> 🧠 **Quiz:** [Test yourself on 1.1.f](quizzes/01-network-components.html#q-1-1-f)
+> 🧠 **Quiz:** [Test yourself on 1.1.f](https://luisaguilardev.github.io/network-engineering-path/notes/01-network-fundamentals/quizzes/01-network-components.html#q-1-1-f)
 
 ---
 
@@ -181,7 +181,7 @@ A stateful firewall **plus** deeper inspection, all in one device (e.g. Cisco Se
 - "Server" describes a **role**, not specific hardware: a laptop running a web service is a server for that service
 - Often run as **virtual machines** or containers in a data center or the cloud
 
-> 🧠 **Quiz:** [Test yourself on 1.1.g](quizzes/01-network-components.html#q-1-1-g)
+> 🧠 **Quiz:** [Test yourself on 1.1.g](https://luisaguilardev.github.io/network-engineering-path/notes/01-network-fundamentals/quizzes/01-network-components.html#q-1-1-g)
 
 ---
 
@@ -202,7 +202,7 @@ A stateful firewall **plus** deeper inspection, all in one device (e.g. Cisco Se
 | 802.3bt Type 3 | UPoE | 60 W |
 | 802.3bt Type 4 | UPoE+ | 90 W |
 
-> 🧠 **Quiz:** [Test yourself on 1.1.h](quizzes/01-network-components.html#q-1-1-h)
+> 🧠 **Quiz:** [Test yourself on 1.1.h](https://luisaguilardev.github.io/network-engineering-path/notes/01-network-fundamentals/quizzes/01-network-components.html#q-1-1-h)
 
 ---
 

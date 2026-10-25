@@ -50,6 +50,6 @@ connection-map/ Visual maps of how networks connect (Graphviz)
 ## Usage
 
 - Study: start with `notes/00-base-knowledge/`, then read the notes per domain in `notes/`
-- Self-test: open the HTML quiz linked after each section of a note in a browser
+- Self-test: click the quiz link after each section of a note; quizzes are served by GitHub Pages at https://luisaguilardev.github.io/network-engineering-path/
 - Practice: copy `labs/_template/` to `labs/NNN-short-name/` and fill it in
 - Track progress: tick items in [ROADMAP.md](ROADMAP.md) and update the table above

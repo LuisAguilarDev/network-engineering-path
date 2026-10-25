@@ -6,7 +6,7 @@ Study notes for this CCNA domain. Checklist: [ROADMAP.md](../../ROADMAP.md).
 
 | # | Topic | Related labs |
 |---|-------|--------------|
-| 1.1 | [Network Components](01-network-components.md) ([quiz](quizzes/01-network-components.html)) | — |
+| 1.1 | [Network Components](01-network-components.md) ([quiz](https://luisaguilardev.github.io/network-engineering-path/notes/01-network-fundamentals/quizzes/01-network-components.html)) | — |
 
 ## Conventions
 

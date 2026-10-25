@@ -14,7 +14,7 @@ and Python for automation labs.
 
 - `notes/00-base-knowledge/` — prerequisite theory (OSI/TCP-IP layers) that every domain relies on
 - `notes/NN-domain/` — theory, one folder per CCNA exam domain; numbered topic files
-- `notes/**/quizzes/` — self-contained HTML/JS multiple-choice quizzes, one per note, linked after each section
+- `notes/**/quizzes/` — self-contained HTML/JS multiple-choice quizzes, one per note, linked after each section with absolute GitHub Pages URLs (https://luisaguilardev.github.io/network-engineering-path/) so they run from GitHub
 - `labs/NNN-name/` — hands-on labs, always created by copying `labs/_template/`
 - `projects/` — larger end-to-end builds
 - `cheatsheets/` — quick references

@@ -7,7 +7,7 @@ but the vocabulary ("Layer 2", "Layer 3", "frame", "packet") is used in every ot
 
 | # | Topic | Quiz |
 |---|-------|------|
-| 0.1 | [The OSI and TCP/IP Models (Layers)](01-osi-and-tcpip-models.md) | [quiz](quizzes/01-osi-and-tcpip-models.html) |
+| 0.1 | [The OSI and TCP/IP Models (Layers)](01-osi-and-tcpip-models.md) | [quiz](https://luisaguilardev.github.io/network-engineering-path/notes/00-base-knowledge/quizzes/01-osi-and-tcpip-models.html) |
 
 ## Conventions
 
