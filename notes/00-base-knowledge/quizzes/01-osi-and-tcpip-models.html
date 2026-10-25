@@ -1,0 +1,541 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>0.1 OSI and TCP/IP Quiz</title>
+<style>
+  :root {
+    --bg: #f7f7f5;
+    --surface: #ffffff;
+    --text: #1d1d1f;
+    --muted: #5f6368;
+    --border: #d9d9d6;
+    --accent: #1f6feb;
+    --correct: #1a7f37;
+    --correct-bg: #e6f4ea;
+    --wrong: #c62828;
+    --wrong-bg: #fdecea;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #121212;
+      --surface: #1e1e1e;
+      --text: #e8e8e8;
+      --muted: #a0a0a0;
+      --border: #3a3a3a;
+      --accent: #58a6ff;
+      --correct: #56d364;
+      --correct-bg: #12261a;
+      --wrong: #ff7b72;
+      --wrong-bg: #2d1414;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 24px 16px 64px;
+    background: var(--bg);
+    color: var(--text);
+    font: 16px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  main { max-width: 760px; margin: 0 auto; }
+  h1 { font-size: 1.6rem; margin: 0 0 4px; }
+  .subtitle { color: var(--muted); margin: 0 0 24px; }
+  nav { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
+  nav a {
+    color: var(--accent);
+    text-decoration: none;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 0.9rem;
+  }
+  section.quiz {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 24px;
+    scroll-margin-top: 16px;
+  }
+  section.quiz h2 { font-size: 1.2rem; margin: 0 0 16px; }
+  fieldset { border: 0; margin: 0 0 20px; padding: 0; }
+  legend { font-weight: 600; margin-bottom: 8px; }
+  label.option {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    padding: 6px 10px;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  label.option.is-correct { border-color: var(--correct); background: var(--correct-bg); }
+  label.option.is-wrong { border-color: var(--wrong); background: var(--wrong-bg); }
+  .feedback { margin-top: 6px; font-size: 0.92rem; }
+  .feedback.correct { color: var(--correct); }
+  .feedback.wrong { color: var(--wrong); }
+  .actions { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  button {
+    font: inherit;
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: 1px solid var(--accent);
+    background: var(--accent);
+    color: #fff;
+    cursor: pointer;
+  }
+  button.secondary { background: transparent; color: var(--accent); }
+  .score { font-weight: 600; font-size: 1.1rem; }
+  .final-actions { margin: 8px 0 24px; }
+  #results ul { margin: 8px 0 0; padding-left: 20px; }
+  #results .wrong { color: var(--wrong); }
+</style>
+</head>
+<body>
+<main>
+  <h1>0.1 OSI and TCP/IP Quiz</h1>
+  <p class="subtitle">Answer every question, then press <strong>Check answers</strong> at the bottom. Wrong answers are marked in red and the correct one in green.</p>
+  <nav id="section-nav"></nav>
+  <form id="quiz-form"></form>
+  <section class="quiz" id="results" hidden></section>
+</main>
+
+<script>
+const QUIZZES = [
+  {
+    id: "q-0-1-a",
+    title: "0.1.a Why Layered Models",
+    questions: [
+      {
+        text: "What is the main benefit of splitting networking into layers?",
+        options: [
+          "It makes cables faster",
+          "Each layer has one job and can change without breaking the others",
+          "It removes the need for IP addresses",
+          "It encrypts all traffic"
+        ],
+        answer: 1,
+        explanation: "Layers separate concerns: you can change Wi-Fi for copper without changing the web browser."
+      },
+      {
+        text: "An engineer says \"it's a Layer 1 problem\". What should you check first?",
+        options: ["The routing table", "The cable and the physical port", "The DNS server", "The firewall rules"],
+        answer: 1,
+        explanation: "Layer 1 is Physical: cables, connectors, signals, ports."
+      }
+    ]
+  },
+  {
+    id: "q-0-1-b",
+    title: "0.1.b Layer 1: Physical",
+    questions: [
+      {
+        text: "What does the Physical layer transmit?",
+        options: ["Frames", "Packets", "Bits as signals", "Segments"],
+        answer: 2,
+        explanation: "Layer 1 moves 1s and 0s as electrical, light, or radio signals."
+      },
+      {
+        text: "Which device works only at Layer 1?",
+        options: ["Switch", "Router", "Hub", "Firewall"],
+        answer: 2,
+        explanation: "A hub just repeats bits out every port; it reads no addresses."
+      },
+      {
+        text: "Which medium sends data as pulses of light?",
+        options: ["UTP copper cable", "Fiber optic cable", "Wi-Fi", "Coaxial cable"],
+        answer: 1,
+        explanation: "Fiber uses light; copper uses electrical signals; Wi-Fi uses radio waves."
+      }
+    ]
+  },
+  {
+    id: "q-0-1-c",
+    title: "0.1.c Layer 2: Data Link",
+    questions: [
+      {
+        text: "Which address does Layer 2 use?",
+        options: ["IP address", "Port number", "MAC address", "Hostname"],
+        answer: 2,
+        explanation: "Layer 2 (Data Link) uses 48-bit MAC addresses."
+      },
+      {
+        text: "What is the PDU (data unit) at Layer 2 called?",
+        options: ["Packet", "Frame", "Segment", "Bit"],
+        answer: 1,
+        explanation: "L2 = Frame. L3 = Packet. L4 = Segment."
+      },
+      {
+        text: "A frame arrives with a bad FCS. What does the receiver do?",
+        options: ["Asks the sender to resend it", "Drops the frame", "Forwards it to the router", "Fixes the errors"],
+        answer: 1,
+        explanation: "The FCS only detects errors; corrupted frames are discarded."
+      },
+      {
+        text: "What is the broadcast MAC address?",
+        options: ["0000.0000.0000", "FFFF.FFFF.FFFF", "255.255.255.255", "AAAA.AAAA.AAAA"],
+        answer: 1,
+        explanation: "FFFF.FFFF.FFFF means every device on the LAN. 255.255.255.255 is an IP broadcast (Layer 3)."
+      }
+    ]
+  },
+  {
+    id: "q-0-1-d",
+    title: "0.1.d Layer 3: Network",
+    questions: [
+      {
+        text: "What is the main job of Layer 3?",
+        options: [
+          "Deliver data to the next device on the same LAN",
+          "Deliver data end to end across different networks",
+          "Encrypt the data",
+          "Choose the right application on the host"
+        ],
+        answer: 1,
+        explanation: "Layer 3 routes packets between networks using IP addresses."
+      },
+      {
+        text: "A packet travels PC → Router A → Router B → Server. What changes at each hop?",
+        options: ["The source and destination IP", "The source and destination MAC", "The destination port", "Nothing changes"],
+        answer: 1,
+        explanation: "A new frame is built on each link, so MACs change. IPs stay the same end to end."
+      },
+      {
+        text: "What is the purpose of the TTL field in the IP header?",
+        options: [
+          "To encrypt the packet",
+          "To prevent packets from looping forever",
+          "To identify the application",
+          "To check for bit errors"
+        ],
+        answer: 1,
+        explanation: "Each router decrements TTL by 1 and drops the packet when it reaches 0."
+      }
+    ]
+  },
+  {
+    id: "q-0-1-e",
+    title: "0.1.e Layer 4: Transport",
+    questions: [
+      {
+        text: "Which information does Layer 4 use to deliver data to the right application?",
+        options: ["MAC address", "IP address", "Port number", "VLAN ID"],
+        answer: 2,
+        explanation: "Ports identify applications: e.g. 443 for HTTPS, 22 for SSH."
+      },
+      {
+        text: "Which protocol is connection-oriented and resends lost data?",
+        options: ["UDP", "TCP", "IP", "Ethernet"],
+        answer: 1,
+        explanation: "TCP uses a 3-way handshake and acknowledgments; UDP does not."
+      },
+      {
+        text: "Why do voice and video calls usually use UDP?",
+        options: [
+          "UDP is more reliable",
+          "UDP has low overhead and late data is useless anyway",
+          "UDP encrypts the audio",
+          "TCP cannot carry audio"
+        ],
+        answer: 1,
+        explanation: "Real-time traffic prefers speed; resending an old audio packet would arrive too late."
+      },
+      {
+        text: "What is a socket?",
+        options: ["A MAC address plus a VLAN", "An IP address plus a port", "A router interface", "A type of cable connector"],
+        answer: 1,
+        explanation: "Socket = IP + port, e.g. 192.168.1.10:51000."
+      }
+    ]
+  },
+  {
+    id: "q-0-1-f",
+    title: "0.1.f Layer 5: Session",
+    questions: [
+      {
+        text: "What is the job of the Session layer?",
+        options: [
+          "Open, manage, and close conversations between applications",
+          "Convert data to UTF-8",
+          "Route packets",
+          "Send bits on the cable"
+        ],
+        answer: 0,
+        explanation: "Layer 5 controls sessions, including checkpoints to resume long transfers."
+      },
+      {
+        text: "Which is an example usually placed at Layer 5?",
+        options: ["HTTP", "RPC", "Ethernet", "TCP"],
+        answer: 1,
+        explanation: "RPC and NetBIOS are classic Session layer examples."
+      }
+    ]
+  },
+  {
+    id: "q-0-1-g",
+    title: "0.1.g Layer 6: Presentation",
+    questions: [
+      {
+        text: "Which tasks belong to the Presentation layer?",
+        options: [
+          "Routing and addressing",
+          "Formatting, encryption, and compression",
+          "Port numbers and reliability",
+          "MAC learning"
+        ],
+        answer: 1,
+        explanation: "Layer 6 is the translator: data format, encryption, and compression."
+      },
+      {
+        text: "Which of these is a Presentation layer format?",
+        options: ["JPEG", "OSPF", "UDP", "802.3"],
+        answer: 0,
+        explanation: "JPEG, PNG, ASCII, and UTF-8 are data formats (Layer 6)."
+      }
+    ]
+  },
+  {
+    id: "q-0-1-h",
+    title: "0.1.h Layer 7: Application",
+    questions: [
+      {
+        text: "Which of these is a Layer 7 protocol?",
+        options: ["Google Chrome", "DNS", "Ethernet", "IPv4"],
+        answer: 1,
+        explanation: "Layer 7 is the protocol (DNS, HTTP), not the program (Chrome)."
+      },
+      {
+        text: "Which protocol translates a name like example.com into an IP address?",
+        options: ["DHCP", "DNS", "SMTP", "SNMP"],
+        answer: 1,
+        explanation: "DNS resolves names to IP addresses. DHCP assigns IP addresses to hosts."
+      },
+      {
+        text: "Which remote access protocol is encrypted?",
+        options: ["Telnet", "SSH", "FTP", "TFTP"],
+        answer: 1,
+        explanation: "SSH encrypts the session; Telnet sends everything in clear text."
+      }
+    ]
+  },
+  {
+    id: "q-0-1-i",
+    title: "0.1.i The TCP/IP Model",
+    questions: [
+      {
+        text: "Which OSI layers are combined into the TCP/IP Application layer?",
+        options: ["1 and 2", "3 and 4", "5, 6, and 7", "4 and 5"],
+        answer: 2,
+        explanation: "TCP/IP Application = OSI Session + Presentation + Application."
+      },
+      {
+        text: "What is the TCP/IP model's name for OSI Layer 3?",
+        options: ["Link", "Internet", "Transport", "Network Access"],
+        answer: 1,
+        explanation: "OSI Network layer = TCP/IP Internet layer."
+      },
+      {
+        text: "Which statement is true?",
+        options: [
+          "Engineers stopped using OSI layer numbers",
+          "The internet is built on OSI protocols",
+          "OSI is a reference model; TCP/IP is what the internet actually uses",
+          "TCP/IP has 7 layers"
+        ],
+        answer: 2,
+        explanation: "TCP/IP runs the internet; OSI numbers are still used to talk about layers."
+      }
+    ]
+  },
+  {
+    id: "q-0-1-j",
+    title: "0.1.j Encapsulation",
+    questions: [
+      {
+        text: "What is the correct order of PDUs from Layer 4 down to Layer 1?",
+        options: [
+          "Packet, Segment, Frame, Bits",
+          "Segment, Packet, Frame, Bits",
+          "Frame, Packet, Segment, Bits",
+          "Segment, Frame, Packet, Bits"
+        ],
+        answer: 1,
+        explanation: "Data → Segment (L4) → Packet (L3) → Frame (L2) → Bits (L1)."
+      },
+      {
+        text: "Which layer adds a trailer (FCS) as well as a header?",
+        options: ["Layer 2", "Layer 3", "Layer 4", "Layer 7"],
+        answer: 0,
+        explanation: "Only the Data Link layer adds a trailer: the Frame Check Sequence."
+      },
+      {
+        text: "Your PC sends a packet to a server in another network. Which destination MAC does the frame use?",
+        options: ["The server's MAC", "The default gateway's MAC", "FFFF.FFFF.FFFF", "The DNS server's MAC"],
+        answer: 1,
+        explanation: "The frame only reaches the next hop: the router (default gateway). The destination IP is the server's."
+      },
+      {
+        text: "What is decapsulation?",
+        options: [
+          "Adding headers while sending",
+          "Removing headers layer by layer while receiving",
+          "Encrypting the data",
+          "Splitting data into segments"
+        ],
+        answer: 1,
+        explanation: "The receiver removes each header from L1 up to L7."
+      },
+      {
+        text: "A packet passes through a switch and then a router on its way to a server. Up to which layer does each device process it?",
+        options: [
+          "Both go up to Layer 7",
+          "Switch up to Layer 2, router up to Layer 3",
+          "Switch up to Layer 3, router up to Layer 2",
+          "Both only use Layer 1"
+        ],
+        answer: 1,
+        explanation: "Intermediate devices only go up to the layer they need: MAC for the switch (L2), IP for the router (L3). Only endpoints use all 7 layers."
+      }
+    ]
+  },
+  {
+    id: "q-0-1-k",
+    title: "0.1.k Devices per Layer",
+    questions: [
+      {
+        text: "At which layer does a traditional switch make its forwarding decisions?",
+        options: ["Layer 1", "Layer 2", "Layer 3", "Layer 4"],
+        answer: 1,
+        explanation: "A switch forwards frames using MAC addresses (Layer 2)."
+      },
+      {
+        text: "Which device decides using IP addresses?",
+        options: ["Hub", "Switch", "Router", "Repeater"],
+        answer: 2,
+        explanation: "Routers are Layer 3 devices."
+      },
+      {
+        text: "Which device can allow or block traffic based on the application itself (Layer 7)?",
+        options: ["Hub", "Layer 2 switch", "Traditional firewall", "Next-generation firewall"],
+        answer: 3,
+        explanation: "A traditional firewall checks IPs and ports (L3–L4); an NGFW also identifies applications."
+      }
+    ]
+  }
+];
+
+function createElement(tag, props = {}, children = []) {
+  const { dataset, ...rest } = props;
+  const element = Object.assign(document.createElement(tag), rest);
+  Object.assign(element.dataset, dataset);
+  element.append(...children);
+  return element;
+}
+
+function questionName(quizId, index) {
+  return `${quizId}-${index}`;
+}
+
+function renderQuestion(quizId, question, index) {
+  const options = question.options.map((optionText, optionIndex) =>
+    createElement("label", { className: "option" }, [
+      createElement("input", { type: "radio", name: questionName(quizId, index), value: String(optionIndex) }),
+      createElement("span", { textContent: optionText })
+    ])
+  );
+  return createElement("fieldset", { id: questionName(quizId, index) }, [
+    createElement("legend", { textContent: `${index + 1}. ${question.text}` }),
+    ...options,
+    createElement("div", { className: "feedback", hidden: true })
+  ]);
+}
+
+function renderSection(quiz) {
+  return createElement("section", { className: "quiz", id: quiz.id }, [
+    createElement("h2", { textContent: quiz.title }),
+    ...quiz.questions.map((question, index) => renderQuestion(quiz.id, question, index))
+  ]);
+}
+
+function gradeQuestion(quizId, question, index) {
+  const fieldset = document.getElementById(questionName(quizId, index));
+  const selected = fieldset.querySelector("input:checked");
+  const selectedIndex = selected ? Number(selected.value) : null;
+  const isCorrect = selectedIndex === question.answer;
+
+  fieldset.querySelectorAll("label.option").forEach((label, optionIndex) => {
+    label.classList.toggle("is-correct", optionIndex === question.answer);
+    label.classList.toggle("is-wrong", optionIndex === selectedIndex && !isCorrect);
+  });
+
+  const feedback = fieldset.querySelector(".feedback");
+  const verdict = isCorrect ? "✔ Correct." : selectedIndex === null ? "✘ Not answered." : "✘ Incorrect.";
+  feedback.textContent = `${verdict} Answer: ${question.options[question.answer]}. ${question.explanation}`;
+  feedback.className = `feedback ${isCorrect ? "correct" : "wrong"}`;
+  feedback.hidden = false;
+  return isCorrect;
+}
+
+function percent(correct, total) {
+  return Math.round((correct / total) * 100);
+}
+
+function renderResults(sectionScores) {
+  const correct = sectionScores.reduce((sum, score) => sum + score.correct, 0);
+  const total = sectionScores.reduce((sum, score) => sum + score.total, 0);
+  const results = document.getElementById("results");
+  results.replaceChildren(
+    createElement("h2", { textContent: "Results" }),
+    createElement("p", { className: "score", textContent: `Total: ${correct} / ${total} (${percent(correct, total)}%)` }),
+    createElement("ul", {}, sectionScores.map(score =>
+      createElement("li", {
+        className: score.correct < score.total ? "wrong" : "",
+        textContent: `${score.title}: ${score.correct} / ${score.total}`
+      })
+    )),
+    createElement("p", { textContent: "Scroll up to review the questions marked in red." })
+  );
+  results.hidden = false;
+  results.scrollIntoView({ behavior: "smooth" });
+}
+
+function gradeAll() {
+  const sectionScores = QUIZZES.map(quiz => ({
+    title: quiz.title,
+    total: quiz.questions.length,
+    correct: quiz.questions.filter((question, index) => gradeQuestion(quiz.id, question, index)).length
+  }));
+  renderResults(sectionScores);
+}
+
+function resetAll() {
+  document.querySelectorAll("label.option").forEach(label => label.classList.remove("is-correct", "is-wrong"));
+  document.querySelectorAll(".feedback").forEach(feedback => { feedback.hidden = true; });
+  document.getElementById("results").hidden = true;
+  window.scrollTo({ top: 0 });
+}
+
+const form = document.getElementById("quiz-form");
+form.append(
+  ...QUIZZES.map(renderSection),
+  createElement("div", { className: "actions final-actions" }, [
+    createElement("button", { type: "submit", textContent: "Check answers" }),
+    createElement("button", { type: "reset", className: "secondary", textContent: "Reset" })
+  ])
+);
+form.addEventListener("submit", event => {
+  event.preventDefault();
+  gradeAll();
+});
+form.addEventListener("reset", resetAll);
+
+document.getElementById("section-nav").append(
+  ...QUIZZES.map(quiz => createElement("a", { href: `#${quiz.id}`, textContent: quiz.title.split(" ")[0] }))
+);
+
+if (location.hash) document.querySelector(location.hash)?.scrollIntoView();
+</script>
+</body>
+</html>

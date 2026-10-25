@@ -1,0 +1,465 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1.1 Network Components Quiz</title>
+<style>
+  :root {
+    --bg: #f7f7f5;
+    --surface: #ffffff;
+    --text: #1d1d1f;
+    --muted: #5f6368;
+    --border: #d9d9d6;
+    --accent: #1f6feb;
+    --correct: #1a7f37;
+    --correct-bg: #e6f4ea;
+    --wrong: #c62828;
+    --wrong-bg: #fdecea;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #121212;
+      --surface: #1e1e1e;
+      --text: #e8e8e8;
+      --muted: #a0a0a0;
+      --border: #3a3a3a;
+      --accent: #58a6ff;
+      --correct: #56d364;
+      --correct-bg: #12261a;
+      --wrong: #ff7b72;
+      --wrong-bg: #2d1414;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 24px 16px 64px;
+    background: var(--bg);
+    color: var(--text);
+    font: 16px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  main { max-width: 760px; margin: 0 auto; }
+  h1 { font-size: 1.6rem; margin: 0 0 4px; }
+  .subtitle { color: var(--muted); margin: 0 0 24px; }
+  nav { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
+  nav a {
+    color: var(--accent);
+    text-decoration: none;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 0.9rem;
+  }
+  section.quiz {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 24px;
+    scroll-margin-top: 16px;
+  }
+  section.quiz h2 { font-size: 1.2rem; margin: 0 0 16px; }
+  fieldset { border: 0; margin: 0 0 20px; padding: 0; }
+  legend { font-weight: 600; margin-bottom: 8px; }
+  label.option {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    padding: 6px 10px;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  label.option.is-correct { border-color: var(--correct); background: var(--correct-bg); }
+  label.option.is-wrong { border-color: var(--wrong); background: var(--wrong-bg); }
+  .feedback { margin-top: 6px; font-size: 0.92rem; }
+  .feedback.correct { color: var(--correct); }
+  .feedback.wrong { color: var(--wrong); }
+  .actions { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  button {
+    font: inherit;
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: 1px solid var(--accent);
+    background: var(--accent);
+    color: #fff;
+    cursor: pointer;
+  }
+  button.secondary { background: transparent; color: var(--accent); }
+  .score { font-weight: 600; font-size: 1.1rem; }
+  .final-actions { margin: 8px 0 24px; }
+  #results ul { margin: 8px 0 0; padding-left: 20px; }
+  #results .wrong { color: var(--wrong); }
+</style>
+</head>
+<body>
+<main>
+  <h1>1.1 Network Components Quiz</h1>
+  <p class="subtitle">Answer every question, then press <strong>Check answers</strong> at the bottom. Wrong answers are marked in red and the correct one in green.</p>
+  <nav id="section-nav"></nav>
+  <form id="quiz-form"></form>
+  <section class="quiz" id="results" hidden></section>
+</main>
+
+<script>
+const QUIZZES = [
+  {
+    id: "q-1-1-a",
+    title: "1.1.a Routers",
+    questions: [
+      {
+        text: "Which address does a router use to decide where to forward a packet?",
+        options: ["Destination MAC address", "Destination IP address", "Source IP address", "VLAN ID"],
+        answer: 1,
+        explanation: "Routers work at Layer 3 and look up the destination IP in the routing table."
+      },
+      {
+        text: "A router has routes to 10.0.0.0/8, 10.1.0.0/16 and 10.1.1.0/24. Which route is used for a packet to 10.1.1.5?",
+        options: ["10.0.0.0/8", "10.1.0.0/16", "10.1.1.0/24", "The default route"],
+        answer: 2,
+        explanation: "Longest prefix match: the most specific route (/24) wins."
+      },
+      {
+        text: "What does a router do with a broadcast it receives on one interface?",
+        options: [
+          "Floods it out every other interface",
+          "Forwards it only to the default gateway",
+          "Does not forward it to other interfaces",
+          "Converts it to a unicast"
+        ],
+        answer: 2,
+        explanation: "Each router interface is its own broadcast domain; routers do not forward broadcasts."
+      }
+    ]
+  },
+  {
+    id: "q-1-1-b",
+    title: "1.1.b Layer 2 and Layer 3 Switches",
+    questions: [
+      {
+        text: "Which address does a switch use to build its MAC address table?",
+        options: ["Destination MAC", "Source MAC", "Source IP", "Destination IP"],
+        answer: 1,
+        explanation: "Switches learn the SOURCE MAC of incoming frames and forward based on the destination MAC."
+      },
+      {
+        text: "A frame arrives with a destination MAC that is not in the MAC table. What does the switch do?",
+        options: [
+          "Drops the frame",
+          "Sends it back out the incoming port",
+          "Floods it out all ports in the VLAN except the incoming one",
+          "Sends it to the default gateway only"
+        ],
+        answer: 2,
+        explanation: "Unknown unicast frames are flooded out every port in the VLAN except the one they came in on."
+      },
+      {
+        text: "A 24-port Layer 2 switch has every port in VLAN 1. How many collision and broadcast domains are there?",
+        options: ["1 collision, 1 broadcast", "24 collision, 1 broadcast", "24 collision, 24 broadcast", "1 collision, 24 broadcast"],
+        answer: 1,
+        explanation: "Each switch port is a collision domain; all ports in one VLAN form a single broadcast domain."
+      },
+      {
+        text: "Which feature lets a Layer 3 switch route between VLANs?",
+        options: ["CAPWAP", "SVI (interface vlan)", "PoE", "Port security"],
+        answer: 1,
+        explanation: "Switched Virtual Interfaces (SVIs) act as the gateway of each VLAN on a multilayer switch."
+      }
+    ]
+  },
+  {
+    id: "q-1-1-c",
+    title: "1.1.c Next-Generation Firewalls and IPS",
+    questions: [
+      {
+        text: "What is the main difference between an IDS and an IPS?",
+        options: [
+          "An IDS is inline and drops traffic; an IPS only alerts",
+          "An IPS is inline and can drop traffic; an IDS receives a copy and only alerts",
+          "Both are inline, but only the IDS uses signatures",
+          "There is no difference"
+        ],
+        answer: 1,
+        explanation: "IDS = passive copy, alerts only. IPS = inline, can block in real time."
+      },
+      {
+        text: "A host inside opens an HTTPS session to a server on the internet. What happens with the return traffic on a stateful firewall?",
+        options: [
+          "It is dropped unless an outside-to-inside rule exists",
+          "It is allowed automatically because the firewall tracks the session",
+          "It is sent to the IPS for approval",
+          "It is allowed only if it uses UDP"
+        ],
+        answer: 1,
+        explanation: "A stateful firewall remembers sessions opened from inside and permits their return traffic."
+      },
+      {
+        text: "Which NGFW feature can allow Microsoft Teams but block online games, even if both use the same port?",
+        options: ["URL filtering", "Advanced Malware Protection (AMP)", "Application Visibility and Control (AVC)", "NAT"],
+        answer: 2,
+        explanation: "AVC identifies the application itself, not just the TCP/UDP port."
+      },
+      {
+        text: "By default, what happens to new traffic from the outside zone to the inside zone?",
+        options: ["It is permitted", "It is denied unless explicitly permitted", "It is rate-limited", "It is redirected to the DMZ"],
+        answer: 1,
+        explanation: "Traffic from a lower-security zone to a higher one is denied unless a rule permits it."
+      }
+    ]
+  },
+  {
+    id: "q-1-1-d",
+    title: "1.1.d Access Points",
+    questions: [
+      {
+        text: "Which protocol does a lightweight AP use to communicate with its WLC?",
+        options: ["CAPWAP", "STP", "LLDP", "HSRP"],
+        answer: 0,
+        explanation: "Lightweight APs tunnel control and data traffic to the WLC using CAPWAP."
+      },
+      {
+        text: "Which AP deployment mode requires configuring every AP one by one?",
+        options: ["Lightweight", "Cloud-based", "Autonomous", "FlexConnect"],
+        answer: 2,
+        explanation: "Autonomous APs manage themselves, so each one is configured individually."
+      },
+      {
+        text: "What is the basic role of an access point?",
+        options: [
+          "Route packets between IP networks",
+          "Bridge wireless 802.11 clients to the wired Ethernet network",
+          "Assign IP addresses to clients",
+          "Filter traffic between security zones"
+        ],
+        answer: 1,
+        explanation: "An AP is a bridge between the wireless and the wired network."
+      }
+    ]
+  },
+  {
+    id: "q-1-1-e",
+    title: "1.1.e Controllers (DNA Center and WLC)",
+    questions: [
+      {
+        text: "Which port does the CAPWAP control channel use?",
+        options: ["TCP 5246", "UDP 5246", "UDP 5247", "TCP 443"],
+        answer: 1,
+        explanation: "CAPWAP control is UDP 5246 (DTLS-encrypted); data is UDP 5247."
+      },
+      {
+        text: "In the split-MAC architecture, which task is handled by the AP instead of the WLC?",
+        options: ["Client authentication", "RF channel and power management", "Sending beacons and real-time frames", "Roaming decisions"],
+        answer: 2,
+        explanation: "The AP handles real-time tasks (beacons, frame transmission); the WLC handles management."
+      },
+      {
+        text: "In Cisco DNA Center, what does the northbound interface connect to?",
+        options: [
+          "Network devices, using SSH and SNMP",
+          "Applications and scripts, using a REST API",
+          "Lightweight APs, using CAPWAP",
+          "The internet, using NAT"
+        ],
+        answer: 1,
+        explanation: "Northbound = controller to apps (REST). Southbound = controller to devices."
+      },
+      {
+        text: "Which of these is a southbound protocol DNA Center uses to configure devices?",
+        options: ["REST", "NETCONF", "HTTP/JSON for dashboards", "CAPWAP"],
+        answer: 1,
+        explanation: "Southbound protocols include SSH, NETCONF and SNMP."
+      }
+    ]
+  },
+  {
+    id: "q-1-1-f",
+    title: "1.1.f Endpoints",
+    questions: [
+      {
+        text: "Which device is an endpoint?",
+        options: ["Router", "Layer 2 switch", "IP camera", "Wireless LAN controller"],
+        answer: 2,
+        explanation: "Endpoints create or consume data at the edge of the network: PCs, phones, cameras, IoT."
+      },
+      {
+        text: "A PC can reach hosts in its own LAN but nothing in other networks. Which setting is most likely missing?",
+        options: ["Subnet mask", "MAC address", "Default gateway", "SSID"],
+        answer: 2,
+        explanation: "Without a default gateway, the host has no way to send traffic outside its subnet."
+      }
+    ]
+  },
+  {
+    id: "q-1-1-g",
+    title: "1.1.g Servers",
+    questions: [
+      {
+        text: "What does the term \"server\" best describe?",
+        options: [
+          "Rack-mounted hardware only",
+          "A role: a device or software that provides a service to clients",
+          "Any device with more than one NIC",
+          "A device that routes between VLANs"
+        ],
+        answer: 1,
+        explanation: "\"Server\" is a role, not specific hardware. A laptop running a web service is a server."
+      },
+      {
+        text: "In the client-server model, who usually starts the communication?",
+        options: ["The server", "The client", "The default gateway", "The switch"],
+        answer: 1,
+        explanation: "Clients send requests; servers respond."
+      }
+    ]
+  },
+  {
+    id: "q-1-1-h",
+    title: "1.1.h PoE",
+    questions: [
+      {
+        text: "What is the maximum power at the switch port for 802.3at (PoE+)?",
+        options: ["15.4 W", "30 W", "60 W", "90 W"],
+        answer: 1,
+        explanation: "802.3af = 15.4 W, 802.3at = 30 W, 802.3bt = 60 W / 90 W."
+      },
+      {
+        text: "In PoE terminology, what is the switch that supplies power called?",
+        options: ["PD (Powered Device)", "PSE (Power Sourcing Equipment)", "WLC", "UPS"],
+        answer: 1,
+        explanation: "The PSE provides power (usually the switch); the PD receives it (AP, phone, camera)."
+      },
+      {
+        text: "Why is it safe to plug a non-PoE laptop into a PoE switch port?",
+        options: [
+          "PoE only works over fiber",
+          "The PSE detects a PoE device before sending power",
+          "Laptops block PoE in their NIC driver",
+          "PoE power is always below 1 W"
+        ],
+        answer: 1,
+        explanation: "The PSE runs a detection step first and only powers a valid PD."
+      },
+      {
+        text: "Which PoE standard provides 15.4 W at the switch port?",
+        options: ["802.3af", "802.3at", "802.3bt Type 3", "802.3bt Type 4"],
+        answer: 0,
+        explanation: "802.3af (classic PoE) delivers 15.4 W at the PSE."
+      }
+    ]
+  }
+];
+
+function createElement(tag, props = {}, children = []) {
+  const { dataset, ...rest } = props;
+  const element = Object.assign(document.createElement(tag), rest);
+  Object.assign(element.dataset, dataset);
+  element.append(...children);
+  return element;
+}
+
+function questionName(quizId, index) {
+  return `${quizId}-${index}`;
+}
+
+function renderQuestion(quizId, question, index) {
+  const options = question.options.map((optionText, optionIndex) =>
+    createElement("label", { className: "option" }, [
+      createElement("input", { type: "radio", name: questionName(quizId, index), value: String(optionIndex) }),
+      createElement("span", { textContent: optionText })
+    ])
+  );
+  return createElement("fieldset", { id: questionName(quizId, index) }, [
+    createElement("legend", { textContent: `${index + 1}. ${question.text}` }),
+    ...options,
+    createElement("div", { className: "feedback", hidden: true })
+  ]);
+}
+
+function renderSection(quiz) {
+  return createElement("section", { className: "quiz", id: quiz.id }, [
+    createElement("h2", { textContent: quiz.title }),
+    ...quiz.questions.map((question, index) => renderQuestion(quiz.id, question, index))
+  ]);
+}
+
+function gradeQuestion(quizId, question, index) {
+  const fieldset = document.getElementById(questionName(quizId, index));
+  const selected = fieldset.querySelector("input:checked");
+  const selectedIndex = selected ? Number(selected.value) : null;
+  const isCorrect = selectedIndex === question.answer;
+
+  fieldset.querySelectorAll("label.option").forEach((label, optionIndex) => {
+    label.classList.toggle("is-correct", optionIndex === question.answer);
+    label.classList.toggle("is-wrong", optionIndex === selectedIndex && !isCorrect);
+  });
+
+  const feedback = fieldset.querySelector(".feedback");
+  const verdict = isCorrect ? "✔ Correct." : selectedIndex === null ? "✘ Not answered." : "✘ Incorrect.";
+  feedback.textContent = `${verdict} Answer: ${question.options[question.answer]}. ${question.explanation}`;
+  feedback.className = `feedback ${isCorrect ? "correct" : "wrong"}`;
+  feedback.hidden = false;
+  return isCorrect;
+}
+
+function percent(correct, total) {
+  return Math.round((correct / total) * 100);
+}
+
+function renderResults(sectionScores) {
+  const correct = sectionScores.reduce((sum, score) => sum + score.correct, 0);
+  const total = sectionScores.reduce((sum, score) => sum + score.total, 0);
+  const results = document.getElementById("results");
+  results.replaceChildren(
+    createElement("h2", { textContent: "Results" }),
+    createElement("p", { className: "score", textContent: `Total: ${correct} / ${total} (${percent(correct, total)}%)` }),
+    createElement("ul", {}, sectionScores.map(score =>
+      createElement("li", {
+        className: score.correct < score.total ? "wrong" : "",
+        textContent: `${score.title}: ${score.correct} / ${score.total}`
+      })
+    )),
+    createElement("p", { textContent: "Scroll up to review the questions marked in red." })
+  );
+  results.hidden = false;
+  results.scrollIntoView({ behavior: "smooth" });
+}
+
+function gradeAll() {
+  const sectionScores = QUIZZES.map(quiz => ({
+    title: quiz.title,
+    total: quiz.questions.length,
+    correct: quiz.questions.filter((question, index) => gradeQuestion(quiz.id, question, index)).length
+  }));
+  renderResults(sectionScores);
+}
+
+function resetAll() {
+  document.querySelectorAll("label.option").forEach(label => label.classList.remove("is-correct", "is-wrong"));
+  document.querySelectorAll(".feedback").forEach(feedback => { feedback.hidden = true; });
+  document.getElementById("results").hidden = true;
+  window.scrollTo({ top: 0 });
+}
+
+const form = document.getElementById("quiz-form");
+form.append(
+  ...QUIZZES.map(renderSection),
+  createElement("div", { className: "actions final-actions" }, [
+    createElement("button", { type: "submit", textContent: "Check answers" }),
+    createElement("button", { type: "reset", className: "secondary", textContent: "Reset" })
+  ])
+);
+form.addEventListener("submit", event => {
+  event.preventDefault();
+  gradeAll();
+});
+form.addEventListener("reset", resetAll);
+
+document.getElementById("section-nav").append(
+  ...QUIZZES.map(quiz => createElement("a", { href: `#${quiz.id}`, textContent: quiz.title.split(" ")[0] }))
+);
+
+if (location.hash) document.querySelector(location.hash)?.scrollIntoView();
+</script>
+</body>
+</html>
