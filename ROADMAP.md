@@ -22,12 +22,12 @@ Legend: `[ ]` not started · `[~]` in progress · `[x]` done
 - [ ] Verify IP parameters on client OS (Windows, macOS, Linux)
 - [ ] Wireless principles (channels, SSID, RF, encryption)
 - [ ] Virtualization fundamentals (VMs, containers, VRFs)
-- [ ] Switching concepts (MAC learning, frame flooding, MAC table)
+- [~] Switching concepts (MAC learning, frame flooding, MAC table)
 
 ## 2. Network Access (20%)
 
-- [ ] VLANs (access ports, data and voice VLANs, inter-VLAN connectivity)
-- [ ] Interswitch connectivity (802.1Q trunks, native VLAN)
+- [~] VLANs (access ports, data and voice VLANs, inter-VLAN connectivity)
+- [~] Interswitch connectivity (802.1Q trunks, native VLAN)
 - [ ] Layer 2 discovery protocols (CDP, LLDP)
 - [ ] EtherChannel (LACP)
 - [ ] Rapid PVST+ Spanning Tree (root bridge, port roles/states, PortFast)

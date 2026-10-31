@@ -1,0 +1,33 @@
+# STP demo, switch 1 (pairs with: sudo python scripts/topology.py up stp)
+#
+#   h1 ── Gi0/1 [vSW1] Gi0/23 ══ Gi0/23 [vSW2] Gi0/1 ── h2
+#                      Gi0/24 ══ Gi0/24
+#
+# Two parallel links form a loop. vSW1 has the lower priority, so it is the root;
+# vSW2 blocks its Gi0/24 (alternate port).
+
+[switch]
+name = "vSW1"
+mac = "02:00:00:00:00:01"
+
+[stp]
+priority = 4096
+hello_time = 1
+forward_delay = 4
+max_age = 6
+
+[[ports]]
+name = "Gi0/1"
+interface = "s1-p1"
+description = "h1"
+portfast = true
+
+[[ports]]
+name = "Gi0/23"
+interface = "s1-l1"
+description = "uplink to vSW2"
+
+[[ports]]
+name = "Gi0/24"
+interface = "s1-l2"
+description = "uplink to vSW2"

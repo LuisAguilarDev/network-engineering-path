@@ -1,0 +1,27 @@
+# STP demo, switch 2 (see stp-sw1.toml for the topology)
+
+[switch]
+name = "vSW2"
+mac = "02:00:00:00:00:02"
+
+[stp]
+priority = 32768
+hello_time = 1
+forward_delay = 4
+max_age = 6
+
+[[ports]]
+name = "Gi0/1"
+interface = "s2-p1"
+description = "h2"
+portfast = true
+
+[[ports]]
+name = "Gi0/23"
+interface = "s2-l1"
+description = "uplink to vSW1"
+
+[[ports]]
+name = "Gi0/24"
+interface = "s2-l2"
+description = "uplink to vSW1"

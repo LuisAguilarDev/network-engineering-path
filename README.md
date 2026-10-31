@@ -36,7 +36,7 @@ Detailed checklist: [ROADMAP.md](ROADMAP.md)
 
 | # | Lab | Topics |
 |---|-----|--------|
-| — | _Coming soon_ | — |
+| — | [Virtual L2 switch in Python](labs/virtual_switch/) | MAC learning, VLANs, 802.1Q trunks, STP, port security, storm control, SPAN |
 
 ## Repository Structure
 

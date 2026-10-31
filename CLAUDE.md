@@ -16,6 +16,8 @@ and Python for automation labs.
 - `notes/NN-domain/` — theory, one folder per CCNA exam domain; numbered topic files
 - `notes/**/quizzes/` — self-contained HTML/JS multiple-choice quizzes, one per note, linked after each section with absolute GitHub Pages URLs (https://luisaguilardev.github.io/network-engineering-path/) so they run from GitHub
 - `labs/NNN-name/` — hands-on labs, always created by copying `labs/_template/`
+- `labs/virtual_switch/` — Python/scapy software L2 switch (VLANs, trunks, STP, port security, SPAN)
+  with its own Dev Container (`.devcontainer/`), pytest suite and IOS-style CLI; see its README
 - `projects/` — larger end-to-end builds
 - `cheatsheets/` — quick references
 - `assets/diagrams/` — shared images

@@ -1,0 +1,53 @@
+{
+  "name": "Virtual Switch (Python + Scapy)",
+  "build": {
+    "dockerfile": "Dockerfile",
+    // Parent folder, so the Dockerfile can COPY the requirements files.
+    "context": ".."
+  },
+  // Raw sockets, network namespaces and veth pairs need full network privileges.
+  // Acceptable for an isolated lab container; never do this for production images.
+  "privileged": true,
+  "remoteUser": "vscode",
+  "postCreateCommand": "python -m pytest -q",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-python.debugpy",
+        "ms-python.vscode-python-envs",
+        "charliermarsh.ruff",
+        "ms-python.mypy-type-checker",
+        "ms-python.pylint",
+        "ms-python.flake8",
+        "ms-python.black-formatter",
+        "ms-python.isort",
+        "ms-toolsai.jupyter",
+        "njpwerner.autodocstring",
+        "KevinRose.vsc-python-indent",
+        "tamasfe.even-better-toml"
+      ],
+      "settings": {
+        "python.defaultInterpreterPath": "/usr/local/bin/python",
+        "python.analysis.typeCheckingMode": "basic",
+        "python.testing.pytestEnabled": true,
+        "python.testing.unittestEnabled": false,
+        "python.testing.pytestArgs": ["tests"],
+        "ruff.importStrategy": "fromEnvironment",
+        "mypy-type-checker.importStrategy": "fromEnvironment",
+        "pylint.args": ["--max-line-length=100", "--disable=C0114,C0115,C0116"],
+        "flake8.args": ["--max-line-length=100"],
+        "isort.args": ["--profile", "black"],
+        "[python]": {
+          "editor.defaultFormatter": "charliermarsh.ruff",
+          "editor.formatOnSave": true,
+          "editor.codeActionsOnSave": {
+            "source.fixAll": "explicit",
+            "source.organizeImports": "explicit"
+          }
+        }
+      }
+    }
+  }
+}

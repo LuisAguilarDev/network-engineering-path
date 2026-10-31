@@ -1,0 +1,70 @@
+# Single switch demo (pairs with: sudo python scripts/topology.py up single)
+#
+#   h1 (VLAN 10) ── Gi0/1 ┐
+#   h2 (VLAN 10) ── Gi0/2 │
+#   h3 (VLAN 20) ── Gi0/3 ├── vSW1
+#   h4 (trunk)   ── Gi0/4 │
+#   h5 (SPAN)    ── Gi0/5 ┘
+
+[switch]
+name = "vSW1"
+mac = "02:00:00:00:01:00"   # bridge MAC, used as the STP bridge ID
+mac_aging_time = 300         # seconds, 0 disables aging
+
+[stp]
+enabled = true
+priority = 32768
+hello_time = 2
+forward_delay = 4            # 802.1D minimum, keeps the demo quick
+max_age = 20
+
+[[vlans]]
+id = 10
+name = "USERS"
+
+[[vlans]]
+id = 20
+name = "SERVERS"
+
+[[ports]]
+name = "Gi0/1"
+interface = "sw-p1"
+description = "h1"
+access_vlan = 10
+portfast = true
+bpdu_guard = true
+storm_control_pps = 50
+port_security = { max_macs = 1, violation = "restrict" }
+
+[[ports]]
+name = "Gi0/2"
+interface = "sw-p2"
+description = "h2"
+access_vlan = 10
+portfast = true
+
+[[ports]]
+name = "Gi0/3"
+interface = "sw-p3"
+description = "h3"
+access_vlan = 20
+portfast = true
+
+[[ports]]
+name = "Gi0/4"
+interface = "sw-p4"
+description = "h4 trunk"
+mode = "trunk"
+native_vlan = 1
+allowed_vlans = [1, 10, 20]
+
+[[ports]]
+name = "Gi0/5"
+interface = "sw-p5"
+description = "h5 sniffer"
+portfast = true
+
+[[span]]
+source_ports = ["Gi0/1"]
+direction = "both"
+destination = "Gi0/5"

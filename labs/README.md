@@ -12,4 +12,4 @@ Hands-on labs that prove practical skills.
 
 | # | Lab | Domain | Tool |
 |---|-----|--------|------|
-| — | _Coming soon_ | — | — |
+| — | [Virtual L2 switch in Python](virtual_switch/) | 2. Network Access | Python + scapy, Dev Container |

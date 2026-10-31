@@ -1,0 +1,23 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "vSwitch: single (sudo)",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "vswitch",
+      "args": ["--config", "configs/single.toml", "--log-level", "INFO", "--log-file", "vswitch.log"],
+      "sudo": true,
+      "console": "integratedTerminal",
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "name": "Tests",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "pytest",
+      "args": ["-q"],
+      "cwd": "${workspaceFolder}"
+    }
+  ]
+}
